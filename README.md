@@ -105,12 +105,19 @@ Edit [`src/data/site.ts`](/Users/abrahamcharles/sheBuilds/src/data/site.ts).
 
 This repo includes a Pages workflow at [deploy.yml](/Users/abrahamcharles/sheBuilds/.github/workflows/deploy.yml).
 
+Repository:
+- [QuantumAbraham/sheBuilds](https://github.com/QuantumAbraham/sheBuilds)
+
+Expected live URL:
+- [https://quantumabraham.github.io/sheBuilds/](https://quantumabraham.github.io/sheBuilds/)
+
 ### One-time setup
 
 1. Push the repo to GitHub.
 2. In GitHub, open `Settings -> Pages`.
 3. Set `Source` to `GitHub Actions`.
 4. Ensure your default branch is `main`, or update the workflow trigger if you use another branch.
+5. Open the `Actions` tab and confirm the `Deploy Astro site to GitHub Pages` workflow has run successfully.
 
 ### How base path handling works
 
