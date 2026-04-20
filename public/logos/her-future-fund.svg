@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="36" fill="#FFF7FC"/>
+  <path d="M100 156C135.9 132 156 111.6 156 86C156 65.6 139.8 50 120.4 50C109.6 50 101.2 55.2 96 63.6C90.8 55.2 82.4 50 71.6 50C52.2 50 36 65.6 36 86C36 111.6 56.1 132 92 156L96 158.8L100 156Z" fill="url(#a)"/>
+  <circle cx="136" cy="56" r="12" fill="#FFE7F6"/>
+  <text x="20" y="176" fill="#613073" font-family="Manrope, Arial, sans-serif" font-size="20" font-weight="700">Her Future Fund</text>
+  <defs><linearGradient id="a" x1="36" y1="50" x2="156" y2="159" gradientUnits="userSpaceOnUse"><stop stop-color="#FF83C9"/><stop offset="1" stop-color="#7C43A8"/></linearGradient></defs>
+</svg>

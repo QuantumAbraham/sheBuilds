@@ -1,0 +1,73 @@
+---
+import type { Spotlight } from "../data/spotlights";
+
+interface Props {
+  item: Spotlight;
+  delay?: string;
+}
+
+const { item, delay } = Astro.props;
+const initials = item.name
+  .split(" ")
+  .map((part) => part[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<article class:list={["spotlight-card", "reveal", delay, item.accent]}>
+  <div class="spotlight-top">
+    <div class="avatar">{initials}</div>
+    <div>
+      <h3>{item.name}</h3>
+      <p class="role">{item.role}</p>
+    </div>
+  </div>
+  <span class="meta-pill">{item.focus}</span>
+  <p class="quote">"{item.quote}"</p>
+</article>
+
+<style>
+  .spotlight-card {
+    padding: 1.4rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .spotlight-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 3.7rem;
+    height: 3.7rem;
+    border-radius: 1.3rem;
+    background: linear-gradient(135deg, rgba(255, 130, 200, 0.92), rgba(124, 67, 168, 0.88));
+    color: white;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.3rem;
+    box-shadow: 0 14px 28px rgba(181, 97, 173, 0.22);
+  }
+
+  .role {
+    color: var(--text-soft);
+    font-weight: 700;
+  }
+
+  .quote {
+    color: rgba(47, 25, 63, 0.82);
+    font-size: 1.05rem;
+  }
+
+  .lavender .avatar {
+    background: linear-gradient(135deg, rgba(202, 167, 255, 0.94), rgba(124, 67, 168, 0.88));
+  }
+
+  .magenta .avatar {
+    background: linear-gradient(135deg, rgba(240, 85, 165, 0.94), rgba(124, 67, 168, 0.9));
+  }
+</style>

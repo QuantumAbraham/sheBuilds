@@ -1,0 +1,11 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="36" fill="#FFF7FC"/>
+  <circle cx="100" cy="92" r="44" fill="url(#a)"/>
+  <circle cx="100" cy="92" r="20" fill="#FFF5FB"/>
+  <path d="M100 35V53" stroke="#7C43A8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M100 131V149" stroke="#7C43A8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M43 92H61" stroke="#7C43A8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M139 92H157" stroke="#7C43A8" stroke-width="8" stroke-linecap="round"/>
+  <text x="33" y="170" fill="#613073" font-family="Manrope, Arial, sans-serif" font-size="23" font-weight="700">Lumen Labs</text>
+  <defs><linearGradient id="a" x1="56" y1="48" x2="144" y2="136" gradientUnits="userSpaceOnUse"><stop stop-color="#FF83C9"/><stop offset="1" stop-color="#F055A5"/></linearGradient></defs>
+</svg>

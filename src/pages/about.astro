@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { roles } from "../data/spotlights";
+
+const values = [
+  "Belonging before bravado",
+  "Visibility for many technical paths",
+  "Warmth with ambition",
+  "Learning in public",
+  "Mentorship that feels human",
+  "Community growth with intention"
+];
+
+const focusAreas = [
+  {
+    title: "Campus belonging",
+    text: "Students often stay in tech when they can imagine a future version of themselves inside it. She Builds creates that sense of recognition and community early."
+  },
+  {
+    title: "Confidence through visibility",
+    text: "Seeing women speak, teach, build, and lead across technical roles changes what feels realistic and worth pursuing."
+  },
+  {
+    title: "Mentorship and learning",
+    text: "Not every student needs a formal program on day one. Sometimes they need one event, one mentor, one conversation, and a clear next step."
+  }
+];
+---
+
+<BaseLayout
+  title="About She Builds | Community, visibility, and belonging in tech"
+  description="Learn why She Builds exists, who it serves, and how it creates belonging, confidence, and visible technical pathways for women at TUM University."
+>
+  <section class="section section-tight">
+    <div class="container two-column">
+      <div class="card reveal" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">About She Builds</span>
+        <h1>A women-in-tech initiative built for visibility, confidence, and connection at TUM.</h1>
+        <p class="lead">
+          She Builds is a welcoming, energetic community for women across computing roles who want to feel less alone, more encouraged, and more visible while learning and building on campus.
+        </p>
+      </div>
+      <div class="card reveal delay-1 surface-muted" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Mission</span>
+        <p>
+          Our mission is to help more women at TUM enter technical spaces with confidence, stay in them with support, and grow through events, mentorship, community storytelling, and visible role models.
+        </p>
+        <p>
+          She Builds exists because talent grows faster in rooms that feel welcoming, credible, and shared.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Why She Builds exists"
+        title="Tech communities are stronger when women can see themselves in them"
+        description="The initiative is designed for students who are already in computing, students still deciding if they belong, and women exploring many different technical identities."
+      />
+      <div class="three-column">
+        {focusAreas.map((item, index) => (
+          <article class:list={["info-card", "reveal", `delay-${index + 1}`]}>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <article class="card reveal" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Who it serves</span>
+        <h2>TUM students across experience levels and technical directions</h2>
+        <p>
+          She Builds is for women already in tech, students considering computer science, beginner developers, designers moving deeper into technical work, aspiring PMs, data learners, security-curious builders, and researchers exploring computing from adjacent disciplines.
+        </p>
+      </article>
+      <article class="card reveal delay-1" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Community impact</span>
+        <p>
+          When students feel a stronger sense of belonging, they ask better questions, stay longer in hard subjects, seek opportunities earlier, and become visible examples for the next group coming in behind them.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Roles represented"
+        title="A broad definition of who gets to build in tech"
+        description="Computing is not one narrow lane. She Builds makes room for many technical and adjacent roles that students can grow into."
+      />
+      <div class="grid role-grid">
+        {roles.map((role, index) => (
+          <article class:list={["role-card", "reveal", `delay-${(index % 4) + 1}`]}>
+            <strong>{role}</strong>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <article class="quote-card reveal" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Visibility matters</span>
+        <h2>Community can change whether students feel invited to stay.</h2>
+        <p>
+          A visible campus initiative sends a clear signal: you do not have to grow in isolation, and there are many ways to become technical without fitting one stereotype.
+        </p>
+      </article>
+      <article class="quote-card reveal delay-1 surface-muted" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">What we value</span>
+        <div class="chip-row">
+          {values.map((value) => (
+            <span class="role-pill">{value}</span>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .info-card,
+  .role-card,
+  .quote-card {
+    padding: 1.35rem;
+  }
+
+  .role-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .role-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(124, 67, 168, 0.1);
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 980px) {
+    .role-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

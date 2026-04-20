@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { withBase } from "../data/site";
+
+interface Props {
+  post: CollectionEntry<"stories">;
+  delay?: string;
+}
+
+const { post, delay } = Astro.props;
+const { title, excerpt, pubDate, readTime, tags } = post.data;
+const published = pubDate.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric"
+});
+---
+
+<article class:list={["story-card", "reveal", delay]}>
+  <div class="meta-row">
+    <span class="meta-pill">{published}</span>
+    <span class="meta-pill">{readTime}</span>
+  </div>
+  <h3>{title}</h3>
+  <p>{excerpt}</p>
+  <div class="tag-list">
+    {tags.map((tag) => (
+      <span class="tag">{tag}</span>
+    ))}
+  </div>
+  <a class="link-pill" href={withBase(`/stories/${post.slug}/`)}>Read the story</a>
+</article>
+
+<style>
+  .story-card {
+    padding: 1.35rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .link-pill {
+    width: fit-content;
+    color: var(--purple);
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(124, 67, 168, 0.12);
+  }
+</style>

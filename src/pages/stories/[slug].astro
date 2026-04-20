@@ -1,0 +1,133 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../data/site";
+
+export async function getStaticPaths() {
+  const stories = await getCollection("stories");
+  return stories.map((story) => ({
+    params: { slug: story.slug },
+    props: { slug: story.slug }
+  }));
+}
+
+const { slug } = Astro.props;
+const post = await getEntry("stories", slug);
+
+if (!post) {
+  throw new Error(`Story not found: ${slug}`);
+}
+
+const { Content } = await post.render();
+const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric"
+});
+---
+
+<BaseLayout title={`${post.data.title} | She Builds Stories`} description={post.data.excerpt}>
+  <section class="section section-tight">
+    <div class="container post-shell">
+      <a class="back-link" href={withBase("/stories/")}>Back to stories</a>
+      <article class="post-card reveal is-visible">
+        <div class="meta-row">
+          <span class="meta-pill">{formattedDate}</span>
+          <span class="meta-pill">{post.data.readTime}</span>
+          <span class="meta-pill">{post.data.author}</span>
+        </div>
+        <h1>{post.data.title}</h1>
+        <p class="lead">{post.data.excerpt}</p>
+        <div class="tag-list">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+        <div class="prose">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .post-shell {
+    max-width: 900px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(124, 67, 168, 0.1);
+    color: var(--purple);
+    font-weight: 800;
+  }
+
+  .post-card {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(124, 67, 168, 0.12);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .post-card h1 {
+    margin: 0.6rem 0 1rem;
+  }
+
+  .prose {
+    margin-top: 1.8rem;
+    color: rgba(47, 25, 63, 0.9);
+    font-size: 1.06rem;
+  }
+
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1rem;
+    color: rgba(47, 25, 63, 0.82);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.2rem;
+  }
+
+  .prose :global(a) {
+    color: var(--purple);
+    text-decoration: underline;
+    text-decoration-color: rgba(124, 67, 168, 0.28);
+  }
+
+  .prose :global(pre) {
+    margin: 1.4rem 0;
+    padding: 1rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 20px 40px rgba(124, 67, 168, 0.12);
+  }
+
+  .prose :global(code:not(pre code)) {
+    padding: 0.12rem 0.35rem;
+    border-radius: 0.45rem;
+    background: rgba(124, 67, 168, 0.08);
+    color: var(--purple);
+  }
+
+  .prose :global(blockquote) {
+    margin: 1.3rem 0;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid rgba(240, 85, 165, 0.72);
+    border-radius: 0 1rem 1rem 0;
+    background: rgba(255, 243, 248, 0.88);
+  }
+</style>

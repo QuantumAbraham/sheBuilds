@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EventCard from "../components/EventCard.astro";
+import FeaturedEventCard from "../components/FeaturedEventCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { events, pastEvents } from "../data/events";
+
+const featuredEvent = events.find((event) => event.featured) ?? events[0];
+const categories = ["Meetup", "Workshop", "Hackathon", "Mentorship", "Career Talk"];
+---
+
+<BaseLayout
+  title="Events | She Builds at TUM"
+  description="Explore upcoming meetups, workshops, hackathons, mentorship sessions, and career talks for the She Builds women-in-tech community at TUM."
+>
+  <section class="section section-tight">
+    <div class="container two-column">
+      <div class="card reveal" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Events</span>
+        <h1>Programming that helps students meet, learn, and actually come back.</h1>
+        <p class="lead">
+          She Builds events are designed to feel high-energy, beginner-welcoming, and worth sharing, with a strong mix of community and practical momentum.
+        </p>
+      </div>
+      <div class="card reveal delay-1 surface-muted" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Event types</span>
+        <div class="chip-row">
+          {categories.map((category) => (
+            <span class="role-pill">{category}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Featured upcoming event"
+        title="One high-visibility event at the top to drive action"
+        description="Useful for new visitors, partner visibility, and quick campaign landing-page momentum."
+      />
+      <FeaturedEventCard event={featuredEvent} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Upcoming calendar"
+        title="Polished event cards that are easy to scan"
+        description="Every listing includes the essentials: title, summary, date, time, location, category, and a direct registration CTA."
+      />
+      <div class="events-grid">
+        {events.map((event, index) => (
+          <EventCard event={event} delay={`delay-${(index % 4) + 1}`} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Past event energy"
+        title="A teaser strip that makes the initiative feel active and alive"
+        description="Even placeholder recaps help visitors see consistency, momentum, and community memory."
+      />
+      <div class="three-column">
+        {pastEvents.map((item, index) => (
+          <article class:list={["card", "reveal", `delay-${index + 1}`]} style="padding: 1.4rem; display: grid; gap: 0.8rem;">
+            <span class="meta-pill">Past event</span>
+            <h3>{item.title}</h3>
+            <p>{item.note}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .events-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 980px) {
+    .events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import { withBase } from "../data/site";
+
+const pathways = [
+  {
+    title: "Join the community",
+    description: "Meet students across computing disciplines, hear about new events, and find the room where you can ask questions out loud.",
+    href: withBase("/contact/#join"),
+    label: "Join now"
+  },
+  {
+    title: "Volunteer with She Builds",
+    description: "Help host events, shape the semester, welcome newcomers, or support social media and operations.",
+    href: withBase("/contact/#volunteer"),
+    label: "Volunteer"
+  },
+  {
+    title: "Become a mentor",
+    description: "Offer office hours, feedback, career perspective, project encouragement, or practical confidence to students earlier in their journey.",
+    href: withBase("/contact/#mentor"),
+    label: "Mentor with us"
+  },
+  {
+    title: "Support the mission",
+    description: "Partner, sponsor, donate resources, or help us scale access to events, mentorship, and visibility.",
+    href: withBase("/partners/#sponsor"),
+    label: "Support She Builds"
+  }
+];
+---
+
+<div class="path-grid">
+  {pathways.map((path, index) => (
+    <article class:list={["path-card", "reveal", `delay-${(index % 4) + 1}`]}>
+      <h3>{path.title}</h3>
+      <p>{path.description}</p>
+      <a class="link-pill" href={path.href}>{path.label}</a>
+    </article>
+  ))}
+</div>
+
+<style>
+  .path-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .path-card {
+    padding: 1.4rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .link-pill {
+    width: fit-content;
+    background: rgba(255, 255, 255, 0.76);
+    border-color: rgba(124, 67, 168, 0.1);
+    color: var(--purple);
+  }
+
+  @media (max-width: 980px) {
+    .path-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

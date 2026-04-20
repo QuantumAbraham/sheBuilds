@@ -1,0 +1,233 @@
+---
+import { getCollection } from "astro:content";
+import CTACluster from "../components/CTACluster.astro";
+import FeaturedEventCard from "../components/FeaturedEventCard.astro";
+import Hero from "../components/Hero.astro";
+import PartnerLogoGrid from "../components/PartnerLogoGrid.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import SpotlightCard from "../components/SpotlightCard.astro";
+import StoryCard from "../components/StoryCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { events } from "../data/events";
+import { partners } from "../data/partners";
+import { roles, spotlights } from "../data/spotlights";
+import { siteConfig, withBase } from "../data/site";
+
+const featuredEvent = events.find((event) => event.featured) ?? events[0];
+const latestStories = (await getCollection("stories"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const reasonsToJoin = [
+  {
+    title: "Belonging that feels tangible",
+    copy: "Move from following tech from a distance to having a room, a chat, and familiar faces on campus."
+  },
+  {
+    title: "Events with real momentum",
+    copy: "Come for workshops, talks, mentor circles, and hands-on sessions that make the next step feel possible."
+  },
+  {
+    title: "Role models across paths",
+    copy: "See women in backend, data, product, AI, security, design, research, and leadership shaping visible careers."
+  },
+  {
+    title: "A credible initiative to back",
+    copy: "Partners and sponsors can support a warm community with strong programming, clear visibility, and meaningful campus reach."
+  }
+];
+---
+
+<BaseLayout
+  title={siteConfig.title}
+  description="Women-in-tech events, mentorship, stories, and partnerships for TUM students who want to belong, build, and grow in computing."
+>
+  <Hero />
+
+  <section class="section">
+    <div class="container two-column">
+      <div class="card reveal" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">What She Builds is</span>
+        <h2>A student community that makes tech feel more visible, more social, and more possible.</h2>
+        <p class="lead">
+          We create rooms where women at TUM can learn out loud, meet collaborators, hear honest career stories, and grow into technical spaces with more confidence.
+        </p>
+      </div>
+      <div class="card reveal delay-1 surface-muted" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Why it exists</span>
+        <p>
+          Too many talented students enter computing without enough mirrors, mentors, or community. She Builds exists to change that with welcoming events, visible pathways, and a stronger sense of campus belonging.
+        </p>
+        <div class="chip-row">
+          <span class="badge">Events</span>
+          <span class="badge">Mentorship</span>
+          <span class="badge">Stories</span>
+          <span class="badge">Volunteering</span>
+          <span class="badge">Partnerships</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Featured event"
+        title="A flagship moment students can join right now"
+        description="Highlighting the next She Builds experience so new visitors immediately see that the community is active, welcoming, and ready to meet them."
+      />
+      <FeaturedEventCard event={featuredEvent} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Who belongs here"
+        title="Women shaping tech across many different roles"
+        description="She Builds is intentionally broad: software, data, product, design, security, research, and the students still deciding where they fit."
+      />
+      <div class="grid role-grid">
+        {roles.map((role, index) => (
+          <article class:list={["role-card", "reveal", `delay-${(index % 4) + 1}`]}>
+            <strong>{role}</strong>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Speaker and member spotlights"
+        title="The community becomes real when students can see themselves in it"
+        description="Featured voices from mentorship, research, product, and engineering who help make She Builds feel active, visible, and alive."
+      />
+      <div class="three-column">
+        {spotlights.map((item, index) => (
+          <SpotlightCard item={item} delay={`delay-${index + 1}`} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Why join"
+        title="A community designed to help students stay, grow, and keep building"
+        description="The site is not just promoting events. It is making clear why She Builds matters across confidence, belonging, opportunity, and visibility."
+      />
+      <div class="grid join-grid">
+        {reasonsToJoin.map((reason, index) => (
+          <article class:list={["info-card", "reveal", `delay-${(index % 4) + 1}`]}>
+            <h3>{reason.title}</h3>
+            <p>{reason.copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Latest stories"
+        title="Warm, practical stories from women building in tech"
+        description="A mix of first steps, mentorship reflections, event energy, and student journeys across software, data, AI, and product."
+      />
+      <div class="three-column">
+        {latestStories.map((post, index) => (
+          <StoryCard post={post} delay={`delay-${index + 1}`} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Partners and sponsors"
+        title="Supporters that make community growth more sustainable"
+        description="Visible partners help She Builds fund events, mentor programming, student opportunities, and the kind of initiative sponsors are proud to stand behind."
+      />
+      <PartnerLogoGrid items={partners} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Pathways"
+        title="Multiple ways to be part of She Builds"
+        description="Joining, volunteering, mentoring, and sponsoring should feel like clear next steps, not vague ideas."
+      />
+      <CTACluster />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <article class="quote-card reveal" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Support the mission</span>
+        <h2>Help fund more events, mentoring, and visibility for women at TUM.</h2>
+        <p>
+          Donations and in-kind support can cover refreshments, accessibility needs, learning resources, travel support for speakers, and community-building moments that turn attendance into belonging.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="mailto:hello@shebuilds.community?subject=Support%20She%20Builds">Offer support</a>
+          <a class="btn btn-secondary" href={withBase("/partners/")}>See partner options</a>
+        </div>
+      </article>
+      <article class="quote-card reveal delay-1 surface-muted" style="padding: 1.6rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Follow along</span>
+        <h3>Stay close to the next event, story, or community call.</h3>
+        <p>
+          The community lives across social updates, event registration, and direct outreach. Keep it easy for students to find the next opening.
+        </p>
+        <div class="social-list">
+          {siteConfig.socialLinks.map((link) => (
+            <a class="social-link" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .role-grid,
+  .join-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .role-card,
+  .info-card,
+  .quote-card {
+    padding: 1.35rem;
+  }
+
+  .role-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(124, 67, 168, 0.1);
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .role-card strong {
+    font-size: 1.03rem;
+  }
+
+  .info-card {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 980px) {
+    .role-grid,
+    .join-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

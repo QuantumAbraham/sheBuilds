@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="36" fill="#FFF7FC"/>
+  <path d="M100 42L142 59V96C142 124.6 124.2 149.8 100 158C75.8 149.8 58 124.6 58 96V59L100 42Z" fill="url(#a)"/>
+  <path d="M92 105L82 95L73 104L92 123L129 86L120 77L92 105Z" fill="white"/>
+  <text x="31" y="170" fill="#613073" font-family="Manrope, Arial, sans-serif" font-size="22" font-weight="700">Signal Secure</text>
+  <defs><linearGradient id="a" x1="58" y1="42" x2="142" y2="158" gradientUnits="userSpaceOnUse"><stop stop-color="#C9A6FF"/><stop offset="1" stop-color="#7C43A8"/></linearGradient></defs>
+</svg>

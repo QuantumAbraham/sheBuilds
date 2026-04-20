@@ -1,0 +1,56 @@
+---
+import type { Partner } from "../data/partners";
+import { withBase } from "../data/site";
+
+interface Props {
+  items: Partner[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="logo-grid">
+  {items.map((partner, index) => (
+    <article class:list={["logo-card", "reveal", `delay-${(index % 4) + 1}`]}>
+      <img src={withBase(partner.logo)} alt={`${partner.name} logo`} loading="lazy" />
+      <div>
+        <strong>{partner.name}</strong>
+        <p>{partner.category}</p>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .logo-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .logo-card {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+  }
+
+  .logo-card img {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    border-radius: 1.2rem;
+  }
+
+  .logo-card strong {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  @media (max-width: 980px) {
+    .logo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

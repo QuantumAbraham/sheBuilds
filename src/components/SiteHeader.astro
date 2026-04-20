@@ -1,0 +1,203 @@
+---
+import { navigation, siteConfig, withBase } from "../data/site";
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href === "/") {
+    return pathname === import.meta.env.BASE_URL || pathname === "/";
+  }
+
+  return pathname.startsWith(withBase(href));
+};
+---
+
+<header class="site-header">
+  <div class="container header-shell">
+    <a class="brand" href={withBase("/")}> 
+      <span class="brand-mark" aria-hidden="true">SB</span>
+      <span class="brand-copy">
+        <strong>{siteConfig.shortName}</strong>
+        <small>TUM women-in-tech community</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      {navigation.map((item) => (
+        <a class:list={["nav-link", { active: isActive(item.href) }]} href={withBase(item.href)}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a class="btn btn-primary header-cta" href={withBase("/contact/#join")}>Join the community</a>
+
+    <details class="mobile-nav">
+      <summary aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </summary>
+      <div class="mobile-panel">
+        {navigation.map((item) => (
+          <a class:list={["mobile-link", { active: isActive(item.href) }]} href={withBase(item.href)}>
+            {item.label}
+          </a>
+        ))}
+        <a class="btn btn-primary" href={withBase("/contact/#join")}>Join the community</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 1rem 0;
+    backdrop-filter: blur(16px);
+    background: linear-gradient(180deg, rgba(255, 248, 252, 0.9), rgba(255, 248, 252, 0.45));
+  }
+
+  .header-shell {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--header-height);
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(124, 67, 168, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.64);
+    box-shadow: 0 18px 40px rgba(160, 109, 176, 0.12);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 2.85rem;
+    height: 2.85rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(255, 130, 200, 0.96), rgba(124, 67, 168, 0.94));
+    color: white;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    box-shadow: 0 16px 28px rgba(181, 97, 173, 0.26);
+  }
+
+  .brand-copy {
+    display: grid;
+    line-height: 1.1;
+  }
+
+  .brand-copy strong {
+    font-size: 1.02rem;
+  }
+
+  .brand-copy small {
+    color: var(--text-soft);
+    font-size: 0.82rem;
+  }
+
+  .desktop-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .nav-link,
+  .mobile-link {
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    color: var(--text-soft);
+    font-weight: 700;
+    transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out);
+  }
+
+  .nav-link:hover,
+  .mobile-link:hover,
+  .nav-link.active,
+  .mobile-link.active {
+    color: var(--purple);
+    background: rgba(255, 255, 255, 0.68);
+  }
+
+  .header-cta {
+    white-space: nowrap;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .mobile-nav summary {
+    list-style: none;
+    display: grid;
+    gap: 0.32rem;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+  }
+
+  .mobile-nav summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-nav summary span {
+    width: 1.3rem;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--purple);
+  }
+
+  .mobile-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    display: grid;
+    gap: 0.5rem;
+    width: min(18rem, calc(100vw - 2rem));
+    padding: 1rem;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(124, 67, 168, 0.12);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (max-width: 1040px) {
+    .header-shell {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .desktop-nav,
+    .header-cta {
+      display: none;
+    }
+
+    .mobile-nav {
+      display: block;
+      position: relative;
+      justify-self: end;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .header-shell {
+      padding: 0.75rem;
+      border-radius: 1.25rem;
+    }
+
+    .brand-copy small {
+      display: none;
+    }
+  }
+</style>

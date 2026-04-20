@@ -1,0 +1,74 @@
+---
+import type { EventItem } from "../data/events";
+import { withBase } from "../data/site";
+
+interface Props {
+  event: EventItem;
+}
+
+const { event } = Astro.props;
+---
+
+<article class="featured-event reveal delay-1">
+  <div class="meta-row">
+    <span class="badge badge-solid">Featured upcoming event</span>
+    <span class="meta-pill">{event.category}</span>
+  </div>
+  <h3>{event.title}</h3>
+  <p>{event.summary}</p>
+  <div class="event-meta">
+    <div>
+      <strong>Date</strong>
+      <span>{event.date}</span>
+    </div>
+    <div>
+      <strong>Time</strong>
+      <span>{event.time}</span>
+    </div>
+    <div>
+      <strong>Location</strong>
+      <span>{event.location}</span>
+    </div>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-primary" href={event.lumaUrl} target="_blank" rel="noreferrer">Register on Luma</a>
+    <a class="btn btn-ghost" href={withBase("/events/")}>See all events</a>
+  </div>
+</article>
+
+<style>
+  .featured-event {
+    padding: 1.6rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .event-meta {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .event-meta div {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(124, 67, 168, 0.08);
+  }
+
+  .event-meta strong,
+  .event-meta span {
+    display: block;
+  }
+
+  .event-meta strong {
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+
+  @media (max-width: 820px) {
+    .event-meta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

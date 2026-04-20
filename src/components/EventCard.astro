@@ -1,0 +1,52 @@
+---
+import type { EventItem } from "../data/events";
+
+interface Props {
+  event: EventItem;
+  delay?: string;
+}
+
+const { event, delay } = Astro.props;
+---
+
+<article class:list={["event-card", "reveal", delay]}>
+  <div class="meta-row">
+    <span class="badge badge-solid">{event.category}</span>
+    <span class="meta-pill">{event.date}</span>
+  </div>
+  <h3>{event.title}</h3>
+  <p>{event.summary}</p>
+  <div class="event-details">
+    <span><strong>Time</strong>{event.time}</span>
+    <span><strong>Location</strong>{event.location}</span>
+  </div>
+  <a class="btn btn-secondary" href={event.lumaUrl} target="_blank" rel="noreferrer">Register on Luma</a>
+</article>
+
+<style>
+  .event-card {
+    padding: 1.4rem;
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .event-details {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .event-details span {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(124, 67, 168, 0.08);
+  }
+
+  .event-details strong {
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+</style>

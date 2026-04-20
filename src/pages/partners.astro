@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PartnerLogoGrid from "../components/PartnerLogoGrid.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { partnerBenefits, partners, sponsorTiers } from "../data/partners";
+---
+
+<BaseLayout
+  title="Partners and Sponsors | She Builds"
+  description="Why partnerships matter for She Builds, how sponsors support women in tech at TUM, and what partner visibility looks like across the initiative."
+>
+  <section class="section section-tight">
+    <div class="container two-column">
+      <div class="card reveal" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Partners and sponsors</span>
+        <h1>Support a women-in-tech initiative that feels credible, visible, and campus-rooted.</h1>
+        <p class="lead">
+          She Builds is structured to be community-led and partner-friendly: active programming, clear mission messaging, visible student reach, and meaningful collaboration opportunities.
+        </p>
+      </div>
+      <div class="card reveal delay-1 surface-muted" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Why partnerships matter</span>
+        <p>
+          Strategic support helps us fund events, mentor programming, speaker invitations, student resources, and the consistency needed to turn a good community into a durable one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Current supporters"
+        title="A sponsor and partner strip that builds trust quickly"
+        description="Use this section to show credibility, create reciprocity for existing supporters, and signal that the initiative is active and organized."
+      />
+      <PartnerLogoGrid items={partners} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <article class="card reveal" style="padding: 1.5rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Partnership benefits</span>
+        <div class="benefit-list">
+          {partnerBenefits.map((benefit) => (
+            <div class="benefit-item">
+              <strong>{benefit}</strong>
+            </div>
+          ))}
+        </div>
+      </article>
+      <article class="card reveal delay-1" style="padding: 1.5rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">How we collaborate</span>
+        <p>
+          Sponsors can support flagship events, mentor matching, community resources, and student-facing technical experiences. We also welcome in-kind support, shared programming, and campus collaboration.
+        </p>
+        <p>
+          Ideal partners want to support women in tech while showing up with substance, not just logo placement.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="sponsor">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Sponsor tiers"
+        title="Simple sample categories future maintainers can adjust"
+        description="Structured enough for outreach, flexible enough to adapt as the initiative grows."
+      />
+      <div class="three-column">
+        {sponsorTiers.map((tier, index) => (
+          <article class:list={["sponsor-tier", "reveal", `delay-${index + 1}`]}>
+            <h3>{tier.name}</h3>
+            <p>{tier.details}</p>
+          </article>
+        ))}
+      </div>
+      <div class="cta-panel reveal delay-2">
+        <div>
+          <span class="eyebrow">Become a sponsor or partner</span>
+          <h3>Want to back events, visibility, or mentorship for women at TUM?</h3>
+          <p>
+            Reach out for a partnership deck, sponsorship conversation, or custom collaboration idea.
+          </p>
+        </div>
+        <a class="btn btn-primary" href="mailto:hello@shebuilds.community?subject=Partnership%20with%20She%20Builds">Start the conversation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .benefit-list {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .benefit-item {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(124, 67, 168, 0.08);
+  }
+
+  .sponsor-tier {
+    padding: 1.4rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .cta-panel {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(124, 67, 168, 0.12);
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.88), rgba(255, 241, 248, 0.84));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: var(--shadow-md);
+  }
+</style>

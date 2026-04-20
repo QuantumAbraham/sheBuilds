@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import StoryCard from "../../components/StoryCard.astro";
+
+const posts = (await getCollection("stories")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title="Stories | She Builds"
+  description="Read stories from students, mentors, and community builders across software, data, AI, design, and product at She Builds."
+>
+  <section class="section section-tight">
+    <div class="container two-column">
+      <div class="card reveal" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">Blog and stories</span>
+        <h1>Stories that make technical paths feel more human, visible, and possible.</h1>
+        <p class="lead">
+          This section is markdown-based for easy editing later and can grow into editorial storytelling, event recaps, community updates, or technical reflections.
+        </p>
+      </div>
+      <div class="card reveal delay-1 surface-muted" style="padding: 1.7rem; display: grid; gap: 1rem;">
+        <span class="eyebrow">What you will find</span>
+        <div class="chip-row">
+          <span class="role-pill">First steps in tech</span>
+          <span class="role-pill">Student journeys</span>
+          <span class="role-pill">Event recaps</span>
+          <span class="role-pill">Mentorship reflections</span>
+          <span class="role-pill">Women across technical roles</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="All stories"
+        title="Editorial polish with simple markdown maintenance"
+        description="Each story includes a title, excerpt, date, tags, and reading time. Future maintainers only need to add another markdown file."
+      />
+      <div class="stories-grid">
+        {posts.map((post, index) => (
+          <StoryCard post={post} delay={`delay-${(index % 4) + 1}`} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stories-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 980px) {
+    .stories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

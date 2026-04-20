@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="36" fill="#FFF5FB"/>
+  <rect x="16" y="16" width="168" height="168" rx="28" fill="url(#a)" fill-opacity="0.18"/>
+  <path d="M61 122C61 97.147 79.819 78 104.5 78C119.696 78 132.76 85.364 139 96.59C147.319 97.344 154 104.314 154 112.821C154 121.836 146.836 129 137.821 129H77.5C68.94 129 61 121.06 61 112.5V122Z" fill="#7C43A8"/>
+  <text x="33" y="165" fill="#613073" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="700">Nova Cloud</text>
+  <defs><linearGradient id="a" x1="20" y1="20" x2="180" y2="180" gradientUnits="userSpaceOnUse"><stop stop-color="#FF83C9"/><stop offset="1" stop-color="#C9A6FF"/></linearGradient></defs>
+</svg>
